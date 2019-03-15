@@ -9,53 +9,55 @@ int p = 0;
 void setup() {
   pinMode(LED, OUTPUT);
   pinMode(BUZZ, OUTPUT);
-  pinMode(BUTTON, OUTPUT);
+  pinMode(BUTTON, INPUT);
   // put your setup code here, to run once:
 LCD.begin(16,2);
 randomSeed(analogRead(0));
 }
 void start(void){
-  v = digitalRead(BUTTON);
-while(v == LOW)
-{
-  LCD.print("Premere il pulsante per iniziare");
-  delay(500);
+  LCD.print("Premi il bottone");
+  LCD.setCursor(0,1);
+  LCD.print("per iniziare");
+  LCD.setCursor(1,0);
   LCD.clear();
-  delay(500);
-}
-if(v == HIGH)
+  LCD.setCursor(0,1);
+  LCD.clear();
+  LCD.setCursor(1,0);
+while(digitalRead(BUTTON) == LOW){}
+  
+if(digitalRead(BUTTON) == HIGH)
 {
   LCD.clear();
   LCD.print("Test iniziato");
 }
-LCD.clear();
-delay(1000);
-LCD.print("3");
-LCD.clear();
-delay(1000);
-LCD.print("2");
-LCD.clear();
-delay(1000);
-LCD.print("1");
-LCD.clear();
-  }
-void accendi(void){
-  digitalWrite(LED,HIGH);
-  k = digitalRead(BUTTON);
-  while(k == LOW){
-    digitalWrite(LED,HIGH);
-  }
-  if(k == HIGH){
-    digitalWrite(LED,LOW);
-  }
+
 }
-void suona(void){
- 
+void conta(){
+  LCD.print("3");
+  LCD.clear();
+  LCD.print("2");
+  LCD.clear();
+  LCD.print("1");
+  LCD.clear();
+}
+void accendi(){
+  digitalWrite(LED,HIGH);
+  while(digitalRead(BUTTON)== LOW){}
+  digitalWrite(LED, LOW);
+}
+void suona(){
+  tone(BUZZ, 1000);
+  while(digitalRead(BUTTON) == LOW){}
+  noTone(BUZZ);
 }
 void loop() {
   // put your main code here, to run repeatedly:
 start();
+LCD.clear();
+conta();
 delay(random(1000,5000));
 accendi();
 delay(random(1000,5000));
+suona();
+
 }
