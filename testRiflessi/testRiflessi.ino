@@ -1,11 +1,10 @@
 #include<LiquidCrystal.h>
 LiquidCrystal LCD(12,11,5,4,3,2);
-int LED = 7;
-int BUZZ = 8;
-int BUTTON = 13;
-int v = 0;
-int k = 0;
-int p = 0;
+int LED = 6;
+int BUZZ = 7;
+int BUTTON = 8;
+int tempoL = 0;
+int tempoB = 0;
 void setup() {
   pinMode(LED, OUTPUT);
   pinMode(BUZZ, OUTPUT);
@@ -14,40 +13,42 @@ void setup() {
 LCD.begin(16,2);
 randomSeed(analogRead(0));
 }
-void start(void){
+void start(){
   LCD.print("Premi il bottone");
   LCD.setCursor(0,1);
   LCD.print("per iniziare");
+while(digitalRead(BUTTON) == LOW){}
   LCD.setCursor(1,0);
   LCD.clear();
   LCD.setCursor(0,1);
   LCD.clear();
   LCD.setCursor(1,0);
-while(digitalRead(BUTTON) == LOW){}
-  
-if(digitalRead(BUTTON) == HIGH)
-{
-  LCD.clear();
-  LCD.print("Test iniziato");
-}
-
 }
 void conta(){
   LCD.print("3");
+  delay(1000);
   LCD.clear();
   LCD.print("2");
+  delay(1000);
   LCD.clear();
   LCD.print("1");
+  delay(1000);
   LCD.clear();
 }
 void accendi(){
+  int a = millis();
   digitalWrite(LED,HIGH);
   while(digitalRead(BUTTON)== LOW){}
+  int b = millis();
   digitalWrite(LED, LOW);
+  tempoL = b - a;
 }
 void suona(){
   tone(BUZZ, 1000);
+  int t = millis();
   while(digitalRead(BUTTON) == LOW){}
+  int o = millis();
+  tempoB = o-t;
   noTone(BUZZ);
 }
 void loop() {
@@ -55,9 +56,28 @@ void loop() {
 start();
 LCD.clear();
 conta();
+LCD.print("Il test sta per iniziare");
+delay(1000);
+LCD.clear();
 delay(random(1000,5000));
 accendi();
+LCD.print("Il tuo tempo:");
+delay(1000);
+LCD.clear();
+LCD.print(tempoL);
+delay(2500);
+LCD.clear();
+LCD.print("Il test sta per iniziare");
+delay(1000);
+LCD.clear();
 delay(random(1000,5000));
 suona();
+LCD.print("Il tuo tempo:");
+delay(1000);
+LCD.clear();
+LCD.print(tempoB);
+delay(2500);
+LCD.clear();
 
+setup();
 }
