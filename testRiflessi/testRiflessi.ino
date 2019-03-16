@@ -1,7 +1,7 @@
 #include<LiquidCrystal.h>
 LiquidCrystal LCD(12,11,5,4,3,2);
-int LED = 6;
-int BUZZ = 7;
+int LED = 7;
+int BUZZ = 10;
 int BUTTON = 8;
 int tempoL = 0;
 int tempoB = 0;
@@ -32,6 +32,16 @@ void media(){
   LCD.print(media);
   delay(1000);
   LCD.clear();
+  if(media < 350){
+    LCD.print("Test superato");
+    delay(1000);
+    LCD.clear();
+  }
+  else{
+    LCD.print("Test fallito");
+    delay(1000);
+    LCD.clear();
+  }
 }
 void conta(){
   LCD.print("3");
