@@ -24,6 +24,15 @@ while(digitalRead(BUTTON) == LOW){}
   LCD.clear();
   LCD.setCursor(1,0);
 }
+void media(){
+  int media = (tempoL+tempoB)/2;
+  LCD.print("Tempo medio:");
+  delay(1000);
+  LCD.clear();
+  LCD.print(media);
+  delay(1000);
+  LCD.clear();
+}
 void conta(){
   LCD.print("3");
   delay(1000);
@@ -56,7 +65,7 @@ void loop() {
 start();
 LCD.clear();
 conta();
-LCD.print("Il test sta per iniziare");
+LCD.print("Test in corso");
 delay(1000);
 LCD.clear();
 delay(random(1000,5000));
@@ -67,7 +76,7 @@ LCD.clear();
 LCD.print(tempoL);
 delay(2500);
 LCD.clear();
-LCD.print("Il test sta per iniziare");
+LCD.print("Test in corso");
 delay(1000);
 LCD.clear();
 delay(random(1000,5000));
@@ -78,6 +87,6 @@ LCD.clear();
 LCD.print(tempoB);
 delay(2500);
 LCD.clear();
-
+media();
 setup();
 }
