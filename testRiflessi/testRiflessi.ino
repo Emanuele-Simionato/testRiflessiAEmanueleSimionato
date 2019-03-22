@@ -1,12 +1,16 @@
 #include<LiquidCrystal.h>
 LiquidCrystal LCD(12,11,5,4,3,2);
-int LED = 7;
+int G = 7;
+int B = 13;
+int R = 6;
 int BUZZ = 10;
 int BUTTON = 8;
 int tempoL = 0;
 int tempoB = 0;
 void setup() {
-  pinMode(LED, OUTPUT);
+  pinMode(G, OUTPUT);
+  pinMode(B, OUTPUT);
+  pinMode(R, OUTPUT);
   pinMode(BUZZ, OUTPUT);
   pinMode(BUTTON, INPUT);
   // put your setup code here, to run once:
@@ -34,13 +38,17 @@ void media(){
   LCD.clear();
   if(media < 350){
     LCD.print("Test superato");
+    digitalWrite(G, HIGH);
     delay(1000);
     LCD.clear();
+    digitalWrite(G, LOW);
   }
   else{
     LCD.print("Test fallito");
+    digitalWrite(R, HIGH);
     delay(1000);
     LCD.clear();
+    digitalWrite(R, LOW);
   }
 }
 void conta(){
@@ -56,10 +64,10 @@ void conta(){
 }
 void accendi(){
   int a = millis();
-  digitalWrite(LED,HIGH);
+  digitalWrite(B,HIGH);
   while(digitalRead(BUTTON)== LOW){}
   int b = millis();
-  digitalWrite(LED, LOW);
+  digitalWrite(B, LOW);
   tempoL = b - a;
 }
 void suona(){
