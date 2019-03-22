@@ -36,7 +36,14 @@ void media(){
   LCD.print(media);
   delay(1000);
   LCD.clear();
-  if(media < 350){
+  if(media == 0){
+    LCD.print("Non barare!");
+    digitalWrite(R, HIGH);
+    delay(1000);
+    LCD.clear();
+    digitalWrite(R, LOW);
+  }
+  if(media < 350 && media != 0){
     LCD.print("Test superato");
     digitalWrite(G, HIGH);
     delay(1000);
@@ -69,14 +76,24 @@ void accendi(){
   int b = millis();
   digitalWrite(B, LOW);
   tempoL = b - a;
+  if(tempoL == 0){
+    LCD.print("Non barare");
+    delay(1000);
+    LCD.clear();
+  }
 }
 void suona(){
   tone(BUZZ, 1000);
   int t = millis();
   while(digitalRead(BUTTON) == LOW){}
   int o = millis();
-  tempoB = o-t;
   noTone(BUZZ);
+  tempoB = o-t;
+  if(tempoB == 0){
+    LCD.print("Non barare");
+    delay(1000);
+    LCD.clear();
+  }
 }
 void loop() {
   // put your main code here, to run repeatedly:
