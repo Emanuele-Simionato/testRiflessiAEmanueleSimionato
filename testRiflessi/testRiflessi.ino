@@ -36,14 +36,14 @@ void media(){
   LCD.print(media);
   delay(1000);
   LCD.clear();
-  if(media == 0){
+  if(media == 0 || media < 130){
     LCD.print("Non barare!");
     digitalWrite(R, HIGH);
     delay(1000);
     LCD.clear();
     digitalWrite(R, LOW);
   }
-  if(media < 350 && media != 0){
+  if(media < 350 && media != 0 && tempoL != 0 && tempoB != 0){
     LCD.print("Test superato");
     digitalWrite(G, HIGH);
     delay(1000);
@@ -78,7 +78,9 @@ void accendi(){
   tempoL = b - a;
   if(tempoL == 0){
     LCD.print("Non barare");
+    digitalWrite(R, HIGH);
     delay(1000);
+    digitalWrite(R, LOW);
     LCD.clear();
   }
 }
@@ -91,7 +93,9 @@ void suona(){
   tempoB = o-t;
   if(tempoB == 0){
     LCD.print("Non barare");
+    digitalWrite(R, HIGH);
     delay(1000);
+    digitalWrite(R, LOW);
     LCD.clear();
   }
 }
