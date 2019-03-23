@@ -60,13 +60,22 @@ void media(){//metodo che calcola il tempo medio di risposta e determina se il t
 }
 void conta(){//conto alla rovescia prima dell'inizio del programma
   LCD.print("3");
-  delay(1000);
+  tone(BUZZ, 1000);
+  delay(750);
+  noTone(BUZZ);
+  delay(250);
   LCD.clear();
   LCD.print("2");
-  delay(1000);
+  tone(BUZZ, 500);
+  delay(750);
+  noTone(BUZZ);
+  delay(250);
   LCD.clear();
   LCD.print("1");
-  delay(1000);
+  tone(BUZZ, 1500);
+  delay(750);
+  noTone(BUZZ);
+  delay(250);
   LCD.clear();
 }
 void accendi(){//funzione che accende il led e calcola il tempo di risposta dell'utente
